@@ -66,7 +66,10 @@ func _add_card(content="", left="", right="", left_c="", right_c=""):
 	return new_card
 
 func _play_card(card) :
+	# Hide the card and play out it's consequences"
 	deck[curr_card].visible = false
+	res_eng.processConsequent(card.consequence)
+	
 	curr_card += 1
 	if curr_card == len(deck):
 		print("Out of cards")

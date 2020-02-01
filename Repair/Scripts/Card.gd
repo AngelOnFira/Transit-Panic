@@ -25,8 +25,9 @@ func init(content, left_choice, right_choice, left_cons, right_cons):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	init("DEFAULT_CONTENT", "DEFAULT_LEFT", "DEFAULT_RIGHT", "DEFAULT_LCONS", "DEFAULT_RCONS")
-
+	#init("DEFAULT_CONTENT", "DEFAULT_LEFT", "DEFAULT_RIGHT", "DEFAULT_LCONS", "DEFAULT_RCONS")
+	pass
+	
 func set_content(text):
 	$Content.text = text
 
