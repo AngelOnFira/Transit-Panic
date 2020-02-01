@@ -21,3 +21,6 @@ func activateConsquent(conseq : String):
 			resource_type.modify(int(p_conseq[1]))
 		_:
 			print("Not a parameter")
+
+func getResourceValue(res_type : String):
+	return resources.getResource(res_type).getValue()
