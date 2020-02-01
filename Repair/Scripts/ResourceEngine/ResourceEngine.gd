@@ -12,7 +12,7 @@ func processConsequent(conseq : String):
 		activateConsquent(curr_conseq)
 	
 func activateConsquent(conseq : String):
-	var p_conseq = conseq.split(",")
+	var p_conseq = conseq.split("|")
 	var resource_type = resources.getResource(p_conseq[0])
 	match p_conseq[0]:
 		"$":

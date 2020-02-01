@@ -15,12 +15,12 @@ enum SWIPE {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_add_card("Card1", "Left text", "Right text", "$,100", "$,-100")
-	_add_card("Card2", "Left text", "Right text", "G,100", "O,-100")
-	_add_card("Card3", "Left text", "Right text", "$,100", "O,-100")
-	_add_card("Card4", "Left text", "Right text", "O,100", "$,-300")
-	_add_card("Card5", "Left text", "Right text", "O,100", "G,10")
-	_add_card("Card6", "Left text", "Right text", "$,100", "$,200")
+	_add_card("Card1", "Left text", "Right text", "$|100", "$|-100")
+	_add_card("Card2", "Left text", "Right text", "G|100", "O|-100")
+	_add_card("Card3", "Left text", "Right text", "$|100", "O|-100")
+	_add_card("Card4", "Left text", "Right text", "O|100", "$|-300")
+	_add_card("Card5", "Left text", "Right text", "O|100", "G|10")
+	_add_card("Card6", "Left text", "Right text", "$|100", "$|200")
 
 func _process(delta):
 	updateGUI()
@@ -71,7 +71,7 @@ func updateGUI() :
 	var gui_container : VBoxContainer = self.get_node("GUI").get_child(0)
 	
 	var gold_text : Label = gui_container.get_child(0)
-	gold_text.text = "Gold: " + str(res_eng.getResourceValue("$"))
+	gold_text.text = "Money: " + str(res_eng.getResourceValue("$"))
 	
 	var opinion_text : Label = gui_container.get_child(1)
 	opinion_text.text = "Opinion: " + str(res_eng.getResourceValue("O"))
