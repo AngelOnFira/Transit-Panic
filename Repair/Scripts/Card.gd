@@ -6,7 +6,8 @@ extends Area2D
 var left_conseq
 var right_conseq
 
-func init(content, left_choice, right_choice, left_cons, right_cons):
+func init(title, content, left_choice, right_choice, left_cons, right_cons):
+	set_title(title)
 	set_content(content)
 	set_left_choice(left_choice)
 	set_right_choice(right_choice)
@@ -20,6 +21,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+func set_title(text):
+	$Card/Title.text = text
 
 func set_content(text):
 	$Card/Content.text = text

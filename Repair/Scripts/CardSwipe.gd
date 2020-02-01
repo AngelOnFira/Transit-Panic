@@ -3,6 +3,9 @@ extends Node2D
 var card_scene = preload("res://Scenes/Card.tscn")
 var res_eng = preload("ResourceEngine/ResourceEngine.gd").new()
 
+var view_width = 1025
+var view_height = 600
+
 var deck = []
 
 var focused_card
@@ -21,11 +24,11 @@ func _ready():
 	randomize()
 	get_sheet("1g0Qx2i5g50F-Win9-ZwN0BTlAT-7SjDR7unNdpnu05M", "Sheet1")
 	yield(self, "finished_sheets")
-	
+
 #	print(sheets)
-	
+
 	var cards = []
-	
+
 	var sheets_lines = sheets.split("\n")
 	for card in sheets_lines:
 		var this_card = []
@@ -33,7 +36,7 @@ func _ready():
 			this_card.append(column.substr(1, column.length() - 2))
 		cards.append(this_card)
 	cards.pop_front()
-	
+
 	var random_card
 	for i in range(5):
 		cards.shuffle()
@@ -46,7 +49,7 @@ func _ready():
 			random_card[3],
 			random_card[4]
 		)
-		
+
 	focused_card = random_card
 
 func _process(delta):
@@ -62,7 +65,11 @@ func _add_card(content="", left="", right="", left_c="", right_c=""):
 	var new_card = card_scene.instance()
 	new_card.init(content, left, right, left_c, right_c)
 	
-	new_card.set_position(Vector2(375, 125))
+	#choose a random position on-screen
+	var x_pos = randf()*(view_width - 375)
+	var y_pos = randf()*(view_height - 375)
+
+	new_card.set_position(Vector2(x_pos, y_pos))
 	
 	deck.push_front(new_card)
 	
@@ -92,7 +99,7 @@ func _play_card(dir, card) :
 			print("LEFT")
 			res_eng.processConsequent(card.get_left_conseq())
 		_:
-			pass
+			print("DEFAULT")
 	yield(player, "animation_finished")
 	deck.erase(focused_card)
 	focused_card.queue_free()
@@ -124,8 +131,8 @@ func get_sheet(sheet_key, sheet_name):
 func _on_request_completed(_result, response_code, _headers, body):
 	if response_code != 200:
 		print("Not able to load CSV")
-		
+
 	sheets = body.get_string_from_utf8()
 	print(sheets)
-	
+
 	emit_signal("finished_sheets")
