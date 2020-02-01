@@ -40,6 +40,7 @@ func _add_card(content="", left="", right="", left_c="", right_c=""):
 	deck.push_front(new_card)
 	
 	add_child(new_card)
+	return new_card
 	
 func _pop_card():
 	var top_card = deck.pop_front()
@@ -66,6 +67,11 @@ func _play_card(dir, card) :
 		_:
 			pass
 	yield(player, "animation_finished")
+	deck.erase(focused_card)
+	focused_card.queue_free()
+	print("Freeing Card" + focused_card.get_node("Card/Content").text)
+	focused_card = _pop_card()
+	print("New Card" + focused_card.get_node("Card/Content").text)
 	
 func updateGUI() :
 	var gui_container : VBoxContainer = self.get_node("GUI").get_child(0)

@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Card.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/typewriter.tres" type="DynamicFont" id=2]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 193.249, 188.715 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "SwipeLeft"
@@ -41,6 +44,9 @@ position = Vector2( -0.714722, -0.404175 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 196.025, 189.471 )
+shape = SubResource( 3 )
 
 [node name="Card" type="Node2D" parent="."]
 
