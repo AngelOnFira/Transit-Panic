@@ -8,6 +8,12 @@ var dragging : bool = false # Used to detect if it's currently being clicked on
 var drag_x : int = 0  
 const drag_max : int = 100        # Max distance from point of drag
 
+# Some data for the parent to read
+var swiped_left : bool = false
+var consequence : String = ""
+
+signal chose_option
+
 func init(content, left_choice, right_choice, left_cons, right_cons):
 	set_content(content)
 	set_left_choice(left_choice)
@@ -58,6 +64,23 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 		if abs(drag_x) > drag_max:
 			dragging = false
 			if drag_x < 0:
-				print("Left")
+				choose_left()
 			else:
-				print("Right")
+				choose_right()
+
+# In these cases, since the consequences are just strings to be parsed and should
+# be totally independent of the card data, we can just call our parent with the
+# serialized data and it can process it for us
+func choose_left():
+	swiped_left = true
+	consequence = left_conseq
+	$SwipeAnimations.play("SwipeLeft")
+	yield($SwipeAnimations, "animation_finished")
+	emit_signal("chose_option", self)
+	
+func choose_right():
+	swiped_left = false
+	consequence = right_conseq
+	$SwipeAnimations.play("SwipeRight")
+	yield($SwipeAnimations, "animation_finished")
+	emit_signal("chose_option", self)
