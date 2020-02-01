@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Fonts/typewriter.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=2]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 54.0
+margin_bottom = 600.0
+
+[node name="Start" type="Button" parent="HBoxContainer/VBoxContainer"]
+margin_right = 54.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 1 )
+text = "Start"
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Start" to="." method="_on_Start_pressed"]
