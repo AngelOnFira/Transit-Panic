@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Images/Coin.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/atwriter.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Images/Opinion_1.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -17,23 +18,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 86.0
+margin_bottom = 60.0
 
 [node name="MoneyCounterBox" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 50.0
+margin_right = 100.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 10, 10 )
 
 [node name="MoneyContainer" type="MarginContainer" parent="VBoxContainer/MoneyCounterBox"]
 margin_right = 100.0
-margin_bottom = 50.0
+margin_bottom = 60.0
 size_flags_horizontal = 3
 
 [node name="MoneyPatch" type="NinePatchRect" parent="VBoxContainer/MoneyCounterBox/MoneyContainer"]
 margin_right = 100.0
-margin_bottom = 50.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 100, 50 )
 
 [node name="MoneyIcon" type="TextureRect" parent="VBoxContainer/MoneyCounterBox/MoneyContainer/MoneyPatch"]
@@ -58,19 +59,50 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OpinionView" type="Label" parent="VBoxContainer"]
-margin_top = 54.0
-margin_right = 1024.0
-margin_bottom = 68.0
-text = "Opinion: A"
+[node name="OpinionBox" type="HBoxContainer" parent="VBoxContainer"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 10, 10 )
+
+[node name="OpinionContainer" type="MarginContainer" parent="VBoxContainer/OpinionBox"]
+margin_right = 100.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+
+[node name="OpinionPatch" type="NinePatchRect" parent="VBoxContainer/OpinionBox/OpinionContainer"]
+margin_right = 100.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 50 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpinionView" type="Label" parent="VBoxContainer/OpinionBox/OpinionContainer/OpinionPatch"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Opinion:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpinionIcon" type="TextureRect" parent="VBoxContainer/OpinionBox/OpinionContainer"]
+margin_left = 50.0
+margin_right = 150.0
+margin_bottom = 60.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="GovernemntView" type="Label" parent="VBoxContainer"]
-margin_top = 72.0
-margin_right = 1024.0
-margin_bottom = 86.0
+margin_left = 208.0
+margin_top = 23.0
+margin_right = 328.0
+margin_bottom = 37.0
 text = "Government : 50%"
 __meta__ = {
 "_edit_use_anchors_": false
