@@ -15,12 +15,15 @@ enum SWIPE {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_add_card("Card1", "Left text", "Right text", "$|100", "$|-100")
-	_add_card("Card2", "Left text", "Right text", "G|100", "O|-100")
-	_add_card("Card3", "Left text", "Right text", "$|100", "O|-100")
-	_add_card("Card4", "Left text", "Right text", "O|100", "$|-300")
-	_add_card("Card5", "Left text", "Right text", "O|100", "G|10")
-	_add_card("Card6", "Left text", "Right text", "$|100", "$|200")
+	get_sheet("1g0Qx2i5g50F-Win9-ZwN0BTlAT-7SjDR7unNdpnu05M", "Sheet1")
+	var sheet = yield()
+
+	_add_card("Card1", "Left text", "Right text", "$,100", "$,-100")
+	_add_card("Card2", "Left text", "Right text", "G,100", "O,-100")
+	_add_card("Card3", "Left text", "Right text", "$,100", "O,-100")
+	_add_card("Card4", "Left text", "Right text", "O,100", "$,-300")
+	_add_card("Card5", "Left text", "Right text", "O,100", "G,10")
+	focused_card = _add_card("Card6", "Left text", "Right text", "$,100", "$,200")
 
 func _process(delta):
 	updateGUI()
@@ -84,3 +87,22 @@ func updateGUI() :
 
 	var government_text : Label = gui_container.get_child(2)
 	government_text.text = "Government: " + str(res_eng.getResourceValue("G"))
+
+func get_sheet(sheet_key, sheet_name):
+	var url = "https://docs.google.com/spreadsheets/d/{key}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
+	var url_filled = url.format({
+		"key": sheet_key,
+		"sheet_name": sheet_name
+	})
+	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
+	$HTTPRequest.request(url_filled)
+
+func _on_request_completed(_result, response_code, _headers, body):
+	get_tree().paused = true
+	if response_code != 200:
+		print("Not able to load CSV")
+		
+	var sheet = body.get_string_from_utf8()
+	
+	var y = _ready()
+	y.resume(sheet)
