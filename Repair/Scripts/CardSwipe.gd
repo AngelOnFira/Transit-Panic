@@ -30,7 +30,7 @@ func _ready():
 	for card in sheets_lines:
 		var this_card = []
 		for column in card.split(","):
-			this_card.append(column)
+			this_card.append(column.substr(1, column.length() - 2))
 		cards.append(this_card)
 	cards.pop_front()
 	
@@ -126,5 +126,6 @@ func _on_request_completed(_result, response_code, _headers, body):
 		print("Not able to load CSV")
 		
 	sheets = body.get_string_from_utf8()
+	print(sheets)
 	
 	emit_signal("finished_sheets")
