@@ -1,3 +1,5 @@
+extends Node
+
 var value : int
 
 func _init():
@@ -7,3 +9,6 @@ func modify(modifier) :
 	print(value)
 	value += modifier
 	print(value)
+	
+func getValue() :
+	return value

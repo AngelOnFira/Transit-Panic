@@ -10,6 +10,7 @@ var resources = {}
 func _init():
 	resources["$"] = ResourceType.new()
 	resources["O"] = ResourceType.new()
+	resources["G"] = ResourceType.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +18,3 @@ func _ready():
 
 func getResource(r_type : String):
 	return resources[r_type]
-
-
-
