@@ -116,13 +116,13 @@ func draw_card():
 	pass
 
 func updateGUI() :
-	var gui_container : VBoxContainer = self.get_node("GUI").get_child(0)
+	var gui_container : HBoxContainer = self.get_node("GUI").get_child(0)
 	
 	var gold_text : Label = gui_container.get_node("MoneyCounterBox/MoneyContainer/MoneyPatch/MoneyCount")
 	gold_text.text = str(res_eng.getResourceValue("$"))
 	
-	var opinion_text : Label = gui_container.get_child(1)
-	opinion_text.text = "Opinion: " + str(res_eng.getResourceValue("O"))
+	#var opinion_text : Label = gui_container.get_node("OpinionBox/OpinionContainer/OpinionPatch/OpinionView")
+	#opinion_text.text = "Opinion: " + str(res_eng.getResourceValue("O"))
 
 	var government_text : Label = gui_container.get_child(2)
 	government_text.text = "Government: " + str(res_eng.getResourceValue("G"))
