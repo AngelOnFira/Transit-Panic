@@ -7,6 +7,9 @@ var deck = []
 
 var focused_card
 
+signal finished_sheets
+var sheets
+
 
 enum SWIPE {
 	right,
@@ -15,15 +18,36 @@ enum SWIPE {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	get_sheet("1g0Qx2i5g50F-Win9-ZwN0BTlAT-7SjDR7unNdpnu05M", "Sheet1")
-	var sheet = yield()
-
-	_add_card("Card1", "Left text", "Right text", "$,100", "$,-100")
-	_add_card("Card2", "Left text", "Right text", "G,100", "O,-100")
-	_add_card("Card3", "Left text", "Right text", "$,100", "O,-100")
-	_add_card("Card4", "Left text", "Right text", "O,100", "$,-300")
-	_add_card("Card5", "Left text", "Right text", "O,100", "G,10")
-	focused_card = _add_card("Card6", "Left text", "Right text", "$,100", "$,200")
+	yield(self, "finished_sheets")
+	
+#	print(sheets)
+	
+	var cards = []
+	
+	var sheets_lines = sheets.split("\n")
+	for card in sheets_lines:
+		var this_card = []
+		for column in card.split(","):
+			this_card.append(column)
+		cards.append(this_card)
+	cards.pop_front()
+	
+	var random_card
+	for i in range(5):
+		cards.shuffle()
+		random_card = cards.pop_front()
+		print(random_card)
+		_add_card(
+			random_card[0],
+			random_card[2],
+			random_card[4],
+			random_card[3],
+			random_card[4]
+		)
+		
+	focused_card = random_card
 
 func _process(delta):
 	updateGUI()
@@ -98,11 +122,9 @@ func get_sheet(sheet_key, sheet_name):
 	$HTTPRequest.request(url_filled)
 
 func _on_request_completed(_result, response_code, _headers, body):
-	get_tree().paused = true
 	if response_code != 200:
 		print("Not able to load CSV")
 		
-	var sheet = body.get_string_from_utf8()
+	sheets = body.get_string_from_utf8()
 	
-	var y = _ready()
-	y.resume(sheet)
+	emit_signal("finished_sheets")
