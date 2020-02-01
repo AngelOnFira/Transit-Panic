@@ -8,14 +8,16 @@ func _ready():
 
 func processConsequent(conseq : String):
 	var all_conseq = conseq.split(":")
+	for curr_conseq in all_conseq:
+		activateConsquent(curr_conseq)
 	
 func activateConsquent(conseq : String):
 	var p_conseq = conseq.split(",")
 	var resource_type = resources.getResource(p_conseq[0])
 	match p_conseq[0]:
 		"$":
-			resource_type.modify(p_conseq[1])
+			resource_type.modify(int(p_conseq[1]))
 		"O":
-			resource_type.modify(p_conseq[1])
+			resource_type.modify(int(p_conseq[1]))
 		_:
 			print("Not a parameter")
