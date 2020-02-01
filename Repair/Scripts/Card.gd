@@ -1,10 +1,12 @@
-extends Area2D
+extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var left_conseq
 var right_conseq
+
+# Hacky vars to do what should be simple
+var dragging : bool = false # Used to detect if it's currently being clicked on
+var drag_x : int = 0  
+const drag_max : int = 100        # Max distance from point of drag
 
 func init(content, left_choice, right_choice, left_cons, right_cons):
 	set_content(content)
@@ -12,23 +14,21 @@ func init(content, left_choice, right_choice, left_cons, right_cons):
 	set_right_choice(right_choice)
 	set_left_conseq(left_cons)
 	set_right_conseq(right_cons)
+	set_process_input(true)
+	set_process_unhandled_input(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	init("DEFAULT_CONTENT", "DEFAULT_LEFT", "DEFAULT_RIGHT", "DEFAULT_LCONS", "DEFAULT_RCONS")
 
 func set_content(text):
-	$Card/Content.text = text
+	$Content.text = text
 
 func set_left_choice(text):
-	$Card/LeftChoice.text = text
+	$LeftChoice.text = text
 
 func set_right_choice(text):
-	$Card/RightChoice.text = text
+	$RightChoice.text = text
 
 func set_left_conseq(text):
 	left_conseq = text
@@ -41,3 +41,23 @@ func get_left_conseq():
 
 func get_right_conseq():
 	return right_conseq
+
+# Hack from https://github.com/godotengine/godot/issues/26181
+func _input(event):
+	get_viewport().unhandled_input(event)
+
+func _on_Area2D_input_event(viewport, event, shape_idx):
+	if (event is InputEventMouseButton && event.pressed):
+		dragging = true
+		drag_x = 0
+	if (event is InputEventMouseButton && !event.pressed):
+		dragging = false
+		drag_x = 0
+	if (dragging && event is InputEventMouseMotion):
+		drag_x += event.relative.x
+		if abs(drag_x) > drag_max:
+			dragging = false
+			if drag_x < 0:
+				print("Left")
+			else:
+				print("Right")
