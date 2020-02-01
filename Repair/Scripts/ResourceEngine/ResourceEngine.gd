@@ -19,6 +19,8 @@ func activateConsquent(conseq : String):
 			resource_type.modify(int(p_conseq[1]))
 		"O":
 			resource_type.modify(int(p_conseq[1]))
+		"G":
+			resource_type.modify(int(p_conseq[1]))
 		_:
 			print("Not a parameter")
 
