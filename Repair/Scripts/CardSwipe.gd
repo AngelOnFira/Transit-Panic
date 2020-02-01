@@ -118,8 +118,8 @@ func draw_card():
 func updateGUI() :
 	var gui_container : VBoxContainer = self.get_node("GUI").get_child(0)
 	
-	var gold_text : Label = gui_container.get_child(0)
-	gold_text.text = "Money: " + str(res_eng.getResourceValue("$"))
+	var gold_text : Label = gui_container.get_node("MoneyCounterBox/MoneyContainer/MoneyPatch/MoneyCount")
+	gold_text.text = str(res_eng.getResourceValue("$"))
 	
 	var opinion_text : Label = gui_container.get_child(1)
 	opinion_text.text = "Opinion: " + str(res_eng.getResourceValue("O"))

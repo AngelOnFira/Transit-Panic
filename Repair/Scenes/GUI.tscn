@@ -1,4 +1,11 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Images/Coin.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Fonts/atwriter.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 2 )
 
 [node name="GUI" type="MarginContainer"]
 anchor_right = 1.0
@@ -12,29 +19,58 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 60.0
+margin_bottom = 86.0
 
-[node name="MoneyCount" type="Label" parent="VBoxContainer"]
+[node name="MoneyCounterBox" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 1024.0
-margin_bottom = 14.0
-text = "Money: 10"
+margin_bottom = 50.0
+rect_min_size = Vector2( 10, 10 )
+
+[node name="MoneyContainer" type="MarginContainer" parent="VBoxContainer/MoneyCounterBox"]
+margin_right = 100.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="MoneyPatch" type="NinePatchRect" parent="VBoxContainer/MoneyCounterBox/MoneyContainer"]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+
+[node name="MoneyIcon" type="TextureRect" parent="VBoxContainer/MoneyCounterBox/MoneyContainer/MoneyPatch"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoneyCount" type="Label" parent="VBoxContainer/MoneyCounterBox/MoneyContainer/MoneyPatch"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 1, 0.991073 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 2
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpinionView" type="Label" parent="VBoxContainer"]
-margin_top = 18.0
+margin_top = 54.0
 margin_right = 1024.0
-margin_bottom = 32.0
+margin_bottom = 68.0
 text = "Opinion: A"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="GovernemntView" type="Label" parent="VBoxContainer"]
-margin_top = 36.0
+margin_top = 72.0
 margin_right = 1024.0
-margin_bottom = 50.0
+margin_bottom = 86.0
 text = "Government : 50%"
 __meta__ = {
 "_edit_use_anchors_": false
