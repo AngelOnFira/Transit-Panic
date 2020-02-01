@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Repair"
-run/main_scene="res://Scenes/GUI.tscn"
+run/main_scene="res://Scenes/CardSwipe.tscn"
 config/icon="res://icon.png"
 
 [input]

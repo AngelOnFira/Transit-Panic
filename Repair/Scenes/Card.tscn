@@ -39,12 +39,26 @@ tracks/0/keys = {
 position = Vector2( 73.7437, 0 )
 script = ExtResource( 1 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 3.01892
+margin_top = 2.2641
+margin_right = 387.019
+margin_bottom = 376.264
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="RichTextLabel" parent="."]
+margin_left = 31.0
+margin_top = 30.0
+margin_right = 355.0
+margin_bottom = 189.0
 custom_fonts/mono_font = ExtResource( 2 )
 custom_fonts/normal_font = ExtResource( 2 )
-text = "test"
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -52,3 +66,35 @@ __meta__ = {
 [node name="SwipeAnimations" type="AnimationPlayer" parent="."]
 anims/SwipeLeft = SubResource( 1 )
 anims/SwipeRight = SubResource( 2 )
+
+[node name="LeftChoice" type="RichTextLabel" parent="."]
+margin_left = 28.0
+margin_top = 201.0
+margin_right = 181.0
+margin_bottom = 360.0
+custom_fonts/mono_font = ExtResource( 2 )
+custom_fonts/normal_font = ExtResource( 2 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Save the Children"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="RightChoice" type="RichTextLabel" parent="."]
+margin_left = 211.973
+margin_top = 199.328
+margin_right = 364.973
+margin_bottom = 358.328
+custom_fonts/mono_font = ExtResource( 2 )
+custom_fonts/normal_font = ExtResource( 2 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Let them die."
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
