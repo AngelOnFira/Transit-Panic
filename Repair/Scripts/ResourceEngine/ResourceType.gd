@@ -8,5 +8,5 @@ func _init():
 func modify(modifier) :
 	value += modifier
 	
-func getValue() :
+func _getValue() :
 	return value

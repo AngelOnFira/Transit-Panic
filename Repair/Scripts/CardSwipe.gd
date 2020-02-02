@@ -134,16 +134,28 @@ func draw_card():
 	pass
 
 func updateGUI() :
-	var gui_container : VBoxContainer = self.get_node("GUI").get_child(0)
+	var gui_container : HBoxContainer = self.get_node("GUI").get_child(0)
 	
-	var gold_text : Label = gui_container.get_child(0)
-	gold_text.text = "Money: " + str(res_eng.getResourceValue("$"))
+	var gold_text : Label = gui_container.get_node("MoneyCounterBox/MoneyContainer/MoneyPatch/MoneyCount")
+	gold_text.text = str(res_eng.getResourceValue("$"))
 	
-	var opinion_text : Label = gui_container.get_child(1)
-	opinion_text.text = "Opinion: " + str(res_eng.getResourceValue("O"))
+	var opinion_photo : TextureRect = gui_container.get_node("OpinionBox/OpinionContainer/OpinionPatch/OpinionIcon")
+	match res_eng.getResourceValue("O"):
+		'A':
+			opinion_photo.texture = preload("../Assets/Images/Opinion_5.png")
+		'B':
+			opinion_photo.texture = preload("../Assets/Images/Opinion_4.png")
+		'C':
+			opinion_photo.texture = preload("../Assets/Images/Opinion_3.png")
+		'D':
+			opinion_photo.texture = preload("../Assets/Images/Opinion_2.png")
+		'F':
+			opinion_photo.texture = preload("../Assets/Images/Opinion_1.png")
+		_:
+			pass
 
-	var government_text : Label = gui_container.get_child(2)
-	government_text.text = "Government: " + str(res_eng.getResourceValue("G"))
+	var government_status_bar : ProgressBar = gui_container.get_node("GovernmentBox/GovernmentContainer/GovernmentPatch/ProgressBar")
+	government_status_bar.value = res_eng.getResourceValue("G")
 
 func get_sheet(sheet_key, sheet_name):
 	var url = "https://docs.google.com/spreadsheets/d/{key}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
