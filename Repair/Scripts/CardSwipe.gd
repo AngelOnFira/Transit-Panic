@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var card_scene = preload("res://Scenes/Card.tscn")
 var res_eng = preload("ResourceEngine/ResourceEngine.gd").new()
@@ -24,9 +24,6 @@ func _ready():
 	get_sheet("1g0Qx2i5g50F-Win9-ZwN0BTlAT-7SjDR7unNdpnu05M", "Sheet1")
 	res_eng.connect("priority_change", self, "change_priority")
 	yield(self, "finished_sheets")
-
-
-#	print(sheets)
 
 	var cards = []
 
@@ -58,7 +55,7 @@ func _ready():
 	#focused_card = random_card
 	#deck[0].visible = true
 	
-	focused_card = _add_card("This is a test card!", "Lose $500?", "Gain 500 opinion?", "$|-500", "O|500")
+	focused_card = _add_card("This is a test card!", "Lose $500?", "Gain 500 opinion?", "$|-400", "G|400")
 	focused_card.visible = true
 	
 	for card in deck:
@@ -139,9 +136,17 @@ func change_priority(card_id, set, value):
 
 func updateGUI() :
 	var gui_container : HBoxContainer = self.get_node("GUI").get_child(0)
+	var max_growth = 5
 	
-	var gold_text : ProgressBar = gui_container.get_node("MoneyCounterBox/MoneyContainer/MoneyPatch/ProgressBar")
-	gold_text.value = res_eng.getResourceValue("$")
+	var gold_progress_bar : ProgressBar = gui_container.get_node("MoneyCounterBox/MoneyContainer/MoneyPatch/ProgressBar")
+	var diff = gold_progress_bar.value - res_eng.getResourceValue("$")
+	if diff > max_growth:
+		gold_progress_bar.value -= max_growth
+	elif diff < max_growth:
+		gold_progress_bar.value += max_growth
+	else:
+		gold_progress_bar.value = res_eng.getResourceValue("$")
+	_update_progress_bar_theme(gold_progress_bar)
 	
 	var opinion_photo : TextureRect = gui_container.get_node("OpinionBox/OpinionContainer/OpinionPatch/OpinionIcon")
 	var opinion_value = res_eng.getResourceValue("O")
@@ -156,8 +161,15 @@ func updateGUI() :
 	if opinion_value > 0:
 		opinion_photo.texture = preload("../Assets/Images/Opinion_1.png")
 
-	var government_status_bar : ProgressBar = gui_container.get_node("GovernmentBox/GovernmentContainer/GovernmentPatch/ProgressBar")
-	government_status_bar.value = res_eng.getResourceValue("G")
+	var government_status_bar : ProgressBar = gui_container.get_node("GovernmentBox/GovernmentContainer/GovernmentPatch/ProgressBar")	
+	diff = government_status_bar.value - res_eng.getResourceValue("G")
+	if diff > max_growth:
+		government_status_bar.value -= max_growth
+	elif diff < max_growth:
+		government_status_bar.value += max_growth
+	else:
+		government_status_bar.value = res_eng.getResourceValue("G")
+	_update_progress_bar_theme(government_status_bar)
 
 func get_sheet(sheet_key, sheet_name):
 	var url = "https://docs.google.com/spreadsheets/d/{key}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
@@ -176,3 +188,11 @@ func _on_request_completed(_result, response_code, _headers, body):
 	print(sheets)
 	
 	emit_signal("finished_sheets")
+	
+func _update_progress_bar_theme(p_bar : ProgressBar):
+	if p_bar.value >= 500:
+		p_bar.theme = preload("../Assets/Themes/GUI_progress_green.tres")
+	elif p_bar.value >= 250:
+		p_bar.theme = preload("../Assets/Themes/GUI_progress_yellow.tres")
+	else:
+		p_bar.theme = preload("../Assets/Themes/GUI_progress_red.tres")

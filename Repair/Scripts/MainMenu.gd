@@ -5,8 +5,8 @@ var card_scene = preload("res://Scenes/Card.tscn")
 
 func _ready():
 	deck = []
-	deck.push_front(add_intro_card("That's all you need, have fun!", "Wait!", "Ok, I'm ready'", "START", "START"))
-	deck.push_front(add_intro_card("You are in charge of fixing the Ottawa transit system", "", "Ok...", "", ""))
+	deck.push_front(add_intro_card("That's all you need, have fun!", "Wait!", "Ok, I'm ready", "START", "START"))
+	deck.push_front(add_intro_card("You are in charge of fixing the dilapidated transit system", "", "Ok...", "", ""))
 	deck.push_front(add_intro_card("If you already know how to play, you can skip the tutorial", "Skip", "Continue", "START", ""))
 	deck.push_front(add_intro_card("To start the game, swipe this card", "Exit", "Start", "EXIT", ""))
 	
@@ -14,7 +14,7 @@ func _ready():
 
 func add_intro_card(content, left_choice, right_choice, left_cons, right_cons):
 	var new_card = card_scene.instance()
-	new_card.init(content, left_choice, right_choice, left_cons, right_cons)
+	new_card.init("", content, left_choice, right_choice, left_cons, right_cons, "")
 
 	new_card.set_position(Vector2(250, 300))
 
