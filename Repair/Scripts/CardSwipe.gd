@@ -44,11 +44,11 @@ func _ready():
 		random_card = cards.pop_front()
 		print(random_card)
 		_add_card(
-			random_card[0],
+			random_card[1],
 			random_card[2],
 			random_card[4],
 			random_card[3],
-			random_card[4]
+			random_card[5]
 		)
 		
 	focused_card = random_card
