@@ -4,28 +4,26 @@ var card_scene = preload("res://Scenes/Card.tscn")
 var res_eng = preload("ResourceEngine/ResourceEngine.gd").new()
 
 var deck = []
-
 var focused_card
 
 signal finished_sheets
 var sheets
 
+var curr_card = 0
 
 enum SWIPE {
 	right,
 	left
 }
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
 	get_sheet("1g0Qx2i5g50F-Win9-ZwN0BTlAT-7SjDR7unNdpnu05M", "Sheet1")
 	yield(self, "finished_sheets")
 	
-#	print(sheets)
-	
 	var cards = []
 	
+	# CSV Parsing
 	var sheets_lines = sheets.split("\n")
 	for card in sheets_lines:
 		var this_card = []
@@ -34,6 +32,7 @@ func _ready():
 		cards.append(this_card)
 	cards.pop_front()
 	
+	# Add 5 cards to the hand from a shuffled deck
 	var random_card
 	for i in range(5):
 		cards.shuffle()
@@ -49,56 +48,32 @@ func _ready():
 		
 	focused_card = random_card
 
+	deck[0].visible = true
+	for card in deck:
+		card.connect("chose_option", self, "_play_card")
+
 func _process(delta):
 	updateGUI()
-	
-func _input(event):
-	if event.is_action_pressed("ui_left"):
-		_swipe(SWIPE.left)
-	elif event.is_action_pressed("ui_right"):
-		_swipe(SWIPE.right)
 	
 func _add_card(content="", left="", right="", left_c="", right_c=""):
 	var new_card = card_scene.instance()
 	new_card.init(content, left, right, left_c, right_c)
-	
 	new_card.set_position(Vector2(375, 125))
-	
+	new_card.visible = false
 	deck.push_front(new_card)
-	
 	add_child(new_card)
 	return new_card
-	
-func _pop_card():
-	var top_card = deck.pop_front()
-	return top_card
-	
-func _swipe(direction):
-	var top_card = _pop_card()
-	
-	_play_card(direction, top_card)
-	
-	top_card.queue_free()
 
-func _play_card(dir, card) :
-	var player = card.get_node("Card/SwipeAnimations")
-	match dir:
-		SWIPE.right:
-			print("RIGHT")
-			player.play("SwipeRight")
-			res_eng.processConsequent(card.get_right_conseq())
-		SWIPE.left:
-			player.play("SwipeLeft")
-			print("LEFT")
-			res_eng.processConsequent(card.get_left_conseq())
-		_:
-			pass
-	yield(player, "animation_finished")
-	deck.erase(focused_card)
-	focused_card.queue_free()
-	print("Freeing Card" + focused_card.get_node("Card/Content").text)
-	focused_card = _pop_card()
-	print("New Card" + focused_card.get_node("Card/Content").text)
+func _play_card(card) :
+	# Hide the card and play out it's consequences"
+	deck[curr_card].visible = false
+	res_eng.processConsequent(card.consequence)
+	
+	curr_card += 1
+	if curr_card == len(deck):
+		print("Out of cards")
+	else:
+		deck[curr_card].visible = true
 	
 func updateGUI() :
 	var gui_container : VBoxContainer = self.get_node("GUI").get_child(0)
