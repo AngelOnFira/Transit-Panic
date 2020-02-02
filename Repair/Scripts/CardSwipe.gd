@@ -119,6 +119,7 @@ func _play_card(card) :
 		draw_card()
 	
 
+func draw_card():
 	# Replace with roulette selection and priority swapping
 	# Remember to set the focused card correctly
 	curr_card += 1
