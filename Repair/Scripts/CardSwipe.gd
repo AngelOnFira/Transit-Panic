@@ -128,9 +128,6 @@ func draw_card():
 	else:
 		deck[curr_card].visible = true
 
-func draw_card():
-	pass
-
 func change_priority(card_id, set, value):
 	for card in deck:
 		if card.id == card_id:
