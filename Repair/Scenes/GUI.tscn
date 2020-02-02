@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Images/Coin.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/atwriter.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Images/Opinion_5.png" type="Texture" id=3]
 
-[sub_resource type="DynamicFont" id=1]
-size = 24
-font_data = ExtResource( 2 )
+[sub_resource type="Theme" id=1]
 
 [sub_resource type="DynamicFont" id=2]
 size = 24
@@ -15,8 +13,6 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=3]
 size = 24
 font_data = ExtResource( 2 )
-
-[sub_resource type="Theme" id=4]
 
 [node name="GUI" type="MarginContainer"]
 anchor_right = 1.0
@@ -59,16 +55,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MoneyCount" type="Label" parent="VBoxContainer/MoneyCounterBox/MoneyContainer/MoneyPatch"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 0.59874
-margin_bottom = 0.59874
-rect_scale = Vector2( 1, 0.991073 )
-custom_fonts/font = SubResource( 1 )
-text = "10"
-align = 2
-valign = 1
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/MoneyCounterBox/MoneyContainer/MoneyPatch"]
+margin_left = 70.0
+margin_top = 20.0
+margin_right = 270.0
+margin_bottom = 45.0
+theme = SubResource( 1 )
+custom_colors/font_color = Color( 0.184314, 0.992157, 0.0705882, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+value = 10.0
+percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -97,10 +93,10 @@ anchor_left = 0.5
 anchor_top = 0.01
 anchor_right = 1.533
 anchor_bottom = 1.0
-margin_left = 3.2876
-margin_top = -0.0012604
-margin_right = -0.0124207
-margin_bottom = 0.59874
+margin_left = 220.0
+margin_top = 4.4
+margin_right = 216.7
+margin_bottom = 5.0
 custom_fonts/font = SubResource( 2 )
 text = "Opinion:"
 valign = 1
@@ -112,10 +108,10 @@ __meta__ = {
 anchor_left = 1.113
 anchor_right = 1.987
 anchor_bottom = 1.0
-margin_left = 48.6332
-margin_top = 1.98861
-margin_right = 3.23315
-margin_bottom = 1.98861
+margin_left = 263.7
+margin_top = 4.0
+margin_right = 218.3
+margin_bottom = 4.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
@@ -143,14 +139,14 @@ __meta__ = {
 }
 
 [node name="GovernemntView" type="Label" parent="VBoxContainer/GovernmentBox/GovernmentContainer/GovernmentPatch"]
-anchor_left = 1.70077
+anchor_left = 4.14658
 anchor_top = 0.275497
-anchor_right = 3.16077
+anchor_right = 5.60658
 anchor_bottom = 0.791497
-margin_left = -0.0252075
-margin_top = -0.0111084
-margin_right = -0.0252075
-margin_bottom = 0.0288887
+margin_left = 0.342163
+margin_top = -1.52982
+margin_right = 0.342163
+margin_bottom = -1.48982
 custom_fonts/font = SubResource( 3 )
 text = "Government:"
 __meta__ = {
@@ -158,11 +154,11 @@ __meta__ = {
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/GovernmentBox/GovernmentContainer/GovernmentPatch"]
-margin_left = 309.713
-margin_top = 23.5705
-margin_right = 654.713
-margin_bottom = 48.5705
-theme = SubResource( 4 )
+margin_left = 560.0
+margin_top = 19.0
+margin_right = 760.0
+margin_bottom = 44.0
+theme = SubResource( 1 )
 custom_colors/font_color = Color( 0.184314, 0.992157, 0.0705882, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 value = 10.0

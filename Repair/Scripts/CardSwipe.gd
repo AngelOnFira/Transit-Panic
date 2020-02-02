@@ -80,7 +80,7 @@ func check_for_endgame() -> bool:
 	var opinion = res_eng.getResourceValue("O")
 	var morality = res_eng.getResourceValue("G")
 	
-	if 	(money > 1000 or money <= 0 or opinion > 1000 or money <= 0 or morality > 1000 or money <= 0):
+	if 	(money > 1000 or money <= 0 or opinion > 1000 or opinion <= 0 or morality > 1000 or morality <= 0):
 		end_game()
 		return true
 	return false
@@ -136,23 +136,21 @@ func draw_card():
 func updateGUI() :
 	var gui_container : HBoxContainer = self.get_node("GUI").get_child(0)
 	
-	var gold_text : Label = gui_container.get_node("MoneyCounterBox/MoneyContainer/MoneyPatch/MoneyCount")
-	gold_text.text = str(res_eng.getResourceValue("$"))
+	var gold_text : ProgressBar = gui_container.get_node("MoneyCounterBox/MoneyContainer/MoneyPatch/ProgressBar")
+	gold_text.value = res_eng.getResourceValue("$")
 	
 	var opinion_photo : TextureRect = gui_container.get_node("OpinionBox/OpinionContainer/OpinionPatch/OpinionIcon")
-	match res_eng.getResourceValue("O"):
-		'A':
-			opinion_photo.texture = preload("../Assets/Images/Opinion_5.png")
-		'B':
-			opinion_photo.texture = preload("../Assets/Images/Opinion_4.png")
-		'C':
-			opinion_photo.texture = preload("../Assets/Images/Opinion_3.png")
-		'D':
-			opinion_photo.texture = preload("../Assets/Images/Opinion_2.png")
-		'F':
-			opinion_photo.texture = preload("../Assets/Images/Opinion_1.png")
-		_:
-			pass
+	var opinion_value = res_eng.getResourceValue("O")
+	if opinion_value > 800:
+		opinion_photo.texture = preload("../Assets/Images/Opinion_5.png")
+	if opinion_value > 600:
+		opinion_photo.texture = preload("../Assets/Images/Opinion_4.png")
+	if opinion_value > 400:
+		opinion_photo.texture = preload("../Assets/Images/Opinion_3.png")
+	if opinion_value > 200:
+		opinion_photo.texture = preload("../Assets/Images/Opinion_2.png")
+	if opinion_value > 0:
+		opinion_photo.texture = preload("../Assets/Images/Opinion_1.png")
 
 	var government_status_bar : ProgressBar = gui_container.get_node("GovernmentBox/GovernmentContainer/GovernmentPatch/ProgressBar")
 	government_status_bar.value = res_eng.getResourceValue("G")
