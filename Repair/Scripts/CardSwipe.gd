@@ -41,7 +41,6 @@ func _ready():
 	cards.shuffle()
 	for i in range(5):
 		random_card = cards.pop_front()
-		print(random_card)
 		_add_card(
 			random_card[0],
 			random_card[1],
@@ -52,11 +51,8 @@ func _ready():
 			random_card[6]
 		)
 	
-	#focused_card = random_card
-	#deck[0].visible = true
-	
-	focused_card = _add_card("This is a test card!", "Lose $500?", "Gain 500 opinion?", "$|-400", "G|400")
-	focused_card.visible = true
+	focused_card = random_card
+	deck[0].visible = true
 	
 	for card in deck:
 		card.connect("chose_option", self, "_play_card")
@@ -132,7 +128,6 @@ func change_priority(card_id, set, value):
 				card.priority =  value
 			else:
 				card.priority = max(card.priority + value, 0)
-		#print(card_id + " changed priority to " + card.priority)
 
 func updateGUI() :
 	var gui_container : HBoxContainer = self.get_node("GUI").get_child(0)
@@ -185,7 +180,6 @@ func _on_request_completed(_result, response_code, _headers, body):
 		print("Not able to load CSV")
 		
 	sheets = body.get_string_from_utf8()
-	print(sheets)
 	
 	emit_signal("finished_sheets")
 	

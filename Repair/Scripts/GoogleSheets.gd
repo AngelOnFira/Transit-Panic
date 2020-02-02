@@ -13,7 +13,6 @@ func get_sheet(caller, sheet_key, sheet_name):
 		"key": sheet_key,
 		"sheet_name": sheet_name
 	})
-	print(url_filled)
 	http_request.connect("request_completed", self, "_on_request_completed")
 	http_request.connect("sheets_request_finished", caller, "sheets_request_finished")
 	http_request.request(url_filled)
@@ -23,6 +22,3 @@ func _on_request_completed(_result, response_code, _headers, body):
 	if response_code != 200:
 		print("Not able to load CSV")
 		
-	print(body.get_string_from_utf8())
-	
-	#emit_signal(sheets_reciever)
