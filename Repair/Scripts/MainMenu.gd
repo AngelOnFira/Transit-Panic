@@ -1,20 +1,22 @@
 extends Control
 
+var card_scene = preload("res://Scenes/Card.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	add_intro_card()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
+func add_intro_card():
+	var new_card = card_scene.instance()
+	new_card.init("hi", "left", "right", "", "")
+
+	new_card.set_position(Vector2(250, 300))
+
+	add_child(new_card)
 
 func _on_Start_pressed():
 	get_tree().change_scene("res://Scenes/CardSwipe.tscn")
