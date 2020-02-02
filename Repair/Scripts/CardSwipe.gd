@@ -36,10 +36,9 @@ func _ready():
 		cards.append(this_card)
 	cards.pop_front()
 
-	# Add 5 cards to the hand from a shuffled deck
 	var random_card
 	cards.shuffle()
-	for i in range(5):
+	for i in range(cards.size()):
 		random_card = cards.pop_front()
 		_add_card(
 			random_card[0],
@@ -115,11 +114,11 @@ func _play_card(card) :
 func draw_card():
 	# Replace with roulette selection and priority swapping
 	# Remember to set the focused card correctly
-	curr_card += 1
-	if curr_card == len(deck):
-		print("Out of cards")
-	else:
-		deck[curr_card].visible = true
+	curr_card = randi() % len(deck)
+	focused_card = deck[curr_card]
+	print(curr_card)
+	print(deck[curr_card])
+	deck[curr_card].visible = true
 
 func change_priority(card_id, set, value):
 	for card in deck:
