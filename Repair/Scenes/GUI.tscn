@@ -6,11 +6,11 @@
 [ext_resource path="res://Assets/Themes/GUI_progress_green.tres" type="Theme" id=4]
 [ext_resource path="res://Assets/Themes/GUI_progress_red.tres" type="Theme" id=5]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 24
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 2 )
 
@@ -97,7 +97,7 @@ anchor_bottom = 1.0
 margin_left = 220.0
 margin_top = -0.6
 margin_right = 216.7
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Opinion:"
 valign = 1
 __meta__ = {
@@ -137,16 +137,16 @@ __meta__ = {
 }
 
 [node name="GovernemntView" type="Label" parent="VBoxContainer/GovernmentBox/GovernmentContainer/GovernmentPatch"]
-anchor_left = 4.14658
-anchor_top = 0.275497
-anchor_right = 5.60658
-anchor_bottom = 0.791497
-margin_left = 0.342163
-margin_top = -1.52982
-margin_right = 0.342163
-margin_bottom = -1.48982
-custom_fonts/font = SubResource( 3 )
-text = "Government:"
+anchor_left = 4.44291
+anchor_top = 0.231269
+anchor_right = 5.90291
+anchor_bottom = 0.747269
+margin_left = 0.342255
+margin_top = 1.12385
+margin_right = 0.342224
+margin_bottom = 1.16385
+custom_fonts/font = SubResource( 2 )
+text = "Morality:"
 __meta__ = {
 "_edit_use_anchors_": true
 }
