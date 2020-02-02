@@ -1,0 +1,49 @@
+[gd_scene format=2]
+
+[node name="EndScreen" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1029.0
+margin_bottom = 605.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Meta Paragraph" type="Label" parent="."]
+margin_left = 6.0
+margin_top = 569.0
+margin_right = 1020.0
+margin_bottom = 583.0
+text = "Made with <3 for GGJ 2020."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 61.0
+margin_top = 258.0
+margin_right = 969.0
+margin_bottom = 290.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top Text" type="Label" parent="VBoxContainer"]
+margin_right = 908.0
+margin_bottom = 14.0
+text = "How Unfortunate."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bottom Text" type="Label" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 908.0
+margin_bottom = 32.0
+text = "It appears you've lost this game, and didn't even get an established ending. That's right. This is the default label text. How unfortunate indeed."
+__meta__ = {
+"_edit_use_anchors_": false
+}

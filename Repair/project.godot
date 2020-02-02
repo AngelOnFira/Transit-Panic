@@ -19,6 +19,10 @@ config/name="Repair"
 run/main_scene="res://Scenes/CardSwipe.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerVariables="*res://Scripts/PlayerVariables.gd"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
