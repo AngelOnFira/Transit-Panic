@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var card_scene = preload("res://Scenes/Card.tscn")
 var res_eng = preload("ResourceEngine/ResourceEngine.gd").new()
