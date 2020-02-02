@@ -85,6 +85,7 @@ func check_for_endgame():
 func end_game() -> void:
 	# Animation fade out, switch to an end scene with credits
 	# and a specialized output based on the resource situation
+	focused_card.get_node("Container/SwipeAnimations").play("Fade Out")
 	$AnimationPlayer.play("Fade To Black")
 	PlayerVariables.endgame_money = res_eng.getResourceValue("$")
 	PlayerVariables.endgame_morality = res_eng.getResourceValue("G")
