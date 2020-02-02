@@ -25,9 +25,6 @@ func _ready():
 	res_eng.connect("priority_change", self, "change_priority")
 	yield(self, "finished_sheets")
 
-
-#	print(sheets)
-
 	var cards = []
 
 	# CSV Parsing
@@ -127,9 +124,6 @@ func draw_card():
 		print("Out of cards")
 	else:
 		deck[curr_card].visible = true
-
-func draw_card():
-	pass
 
 func change_priority(card_id, set, value):
 	for card in deck:

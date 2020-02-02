@@ -14,7 +14,7 @@ func _ready():
 
 func add_intro_card(content, left_choice, right_choice, left_cons, right_cons):
 	var new_card = card_scene.instance()
-	new_card.init(content, left_choice, right_choice, left_cons, right_cons)
+	new_card.init("", content, left_choice, right_choice, left_cons, right_cons, "")
 
 	new_card.set_position(Vector2(250, 300))
 
