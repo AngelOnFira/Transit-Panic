@@ -12,6 +12,7 @@ func _init():
 	resources["$"] = ResourceType.new()
 	resources["O"] = OpinionResource.new()
 	resources["G"] = ResourceType.new()
+	resources["COMMAND"] = ResourceType.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
