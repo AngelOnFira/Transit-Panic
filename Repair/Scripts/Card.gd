@@ -29,13 +29,13 @@ func _ready():
 	pass
 	
 func set_content(text):
-	$Content.text = text
+	$Container/Content.text = text
 
 func set_left_choice(text):
-	$LeftChoice.text = text
+	$Container/LeftChoice.text = text
 
 func set_right_choice(text):
-	$RightChoice.text = text
+	$Container/RightChoice.text = text
 
 func set_left_conseq(text):
 	left_conseq = text
@@ -54,14 +54,19 @@ func _input(event):
 	get_viewport().unhandled_input(event)
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
+	# Handle the click events. If we press down, track it, and track release
 	if (event is InputEventMouseButton && event.pressed):
 		dragging = true
 		drag_x = 0
 	if (event is InputEventMouseButton && !event.pressed):
 		dragging = false
 		drag_x = 0
+		
+	# Now we look for mouse movement	
 	if (dragging && event is InputEventMouseMotion):
 		drag_x += event.relative.x
+		
+		# Check if we've moved far enough to select it
 		if abs(drag_x) > drag_max:
 			dragging = false
 			if drag_x < 0:
@@ -75,13 +80,13 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 func choose_left():
 	swiped_left = true
 	consequence = left_conseq
-	$SwipeAnimations.play("SwipeLeft")
-	yield($SwipeAnimations, "animation_finished")
+	$Container/SwipeAnimations.play("SwipeLeft")
+	yield($Container/SwipeAnimations, "animation_finished")
 	emit_signal("chose_option", self)
 	
 func choose_right():
 	swiped_left = false
 	consequence = right_conseq
-	$SwipeAnimations.play("SwipeRight")
-	yield($SwipeAnimations, "animation_finished")
+	$Container/SwipeAnimations.play("SwipeRight")
+	yield($Container/SwipeAnimations, "animation_finished")
 	emit_signal("chose_option", self)
