@@ -1,5 +1,7 @@
 extends Node
 
+signal priority_change
+
 # Strings of the form A|val:B|val
 var resources = preload("Resources.gd").new()
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +23,9 @@ func activateConsquent(conseq : String):
 			resource_type.modify(int(p_conseq[1]))
 		"G":
 			resource_type.modify(int(p_conseq[1]))
+		"P": # set or increase/decrease the priority of the id'ed card (card_id/set?/value)
+			var priority_changes = p_conseq[1].split("/")
+			emit_signal("priority_change", priority_changes[0], priority_changes[1], priority_changes[2])
 		_:
 			print("Not a parameter")
 

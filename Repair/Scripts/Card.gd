@@ -1,5 +1,7 @@
 extends Node2D
 
+var id
+var priority
 var left_conseq
 var right_conseq
 
@@ -14,7 +16,9 @@ var consequence : String = ""
 
 signal chose_option
 
-func init(content, left_choice, right_choice, left_cons, right_cons):
+func init(id, content, left_choice, right_choice, left_cons, right_cons, priority):
+	self.id = id
+	self.priority = priority
 	set_content(content)
 	set_left_choice(left_choice)
 	set_right_choice(right_choice)

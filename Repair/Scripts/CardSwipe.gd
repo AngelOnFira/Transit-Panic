@@ -12,15 +12,17 @@ var focused_card
 signal finished_sheets
 var sheets
 
-const SECONDS_BETWEEN_CONSEQUENCES : float = 1.0
-var seconds_since_consequence : float = 0.0
-
-
 var curr_card = 0
+
+enum SWIPE {
+	right,
+	left
+}
 
 func _ready():
 	randomize()
 	get_sheet("1g0Qx2i5g50F-Win9-ZwN0BTlAT-7SjDR7unNdpnu05M", "Sheet1")
+	res_eng.connect("priority_change", self, "change_priority")
 	yield(self, "finished_sheets")
 
 
@@ -44,11 +46,13 @@ func _ready():
 		random_card = cards.pop_front()
 		print(random_card)
 		_add_card(
+			random_card[0],
 			random_card[1],
 			random_card[2],
 			random_card[4],
 			random_card[3],
-			random_card[5]
+			random_card[5],
+			random_card[6]
 		)
 	
 	#focused_card = random_card
@@ -99,9 +103,9 @@ func end_game() -> void:
 	yield($AnimationPlayer, "animation_finished")
 	get_tree().change_scene("res://Scenes/EndScreen.tscn")
 
-func _add_card(content="", left="", right="", left_c="", right_c=""):
+func _add_card(id, content="", left="", right="", left_c="", right_c="", priority=1):
 	var new_card = card_scene.instance()
-	new_card.init(content, left, right, left_c, right_c)
+	new_card.init(id, content, left, right, left_c, right_c, priority)
 	
 	#choose a random position on-screen
 	var x_pos = randf()*(view_width - 375)+200
@@ -123,7 +127,6 @@ func _play_card(card) :
 		draw_card()
 	
 
-func draw_card():
 	# Replace with roulette selection and priority swapping
 	# Remember to set the focused card correctly
 	curr_card += 1
@@ -131,7 +134,18 @@ func draw_card():
 		print("Out of cards")
 	else:
 		deck[curr_card].visible = true
+
+func draw_card():
 	pass
+
+func change_priority(card_id, set, value):
+	for card in deck:
+		if card.id == card_id:
+			if set:
+				card.priority =  value
+			else:
+				card.priority = max(card.priority + value, 0)
+		print(card_id + " changed priority to " + card.priority)
 
 func updateGUI() :
 	var gui_container : HBoxContainer = self.get_node("GUI").get_child(0)
