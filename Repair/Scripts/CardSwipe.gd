@@ -105,6 +105,7 @@ func _add_card(id, content="", left="", right="", left_c="", right_c="", priorit
 func _play_card(card) :
 	# Hide the card and play out it's consequences"
 	deck[curr_card].visible = false
+	deck[curr_card].get_node("Container/SwipeAnimations").seek(0,true)
 	res_eng.processConsequent(card.consequence)
 	
 	if !check_for_endgame():
