@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Images/Coin.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/atwriter.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Images/Opinion_5.png" type="Texture" id=3]
-
-[sub_resource type="Theme" id=1]
+[ext_resource path="res://Assets/Themes/GUI_progress_green.tres" type="Theme" id=4]
+[ext_resource path="res://Assets/Themes/GUI_progress_red.tres" type="Theme" id=5]
 
 [sub_resource type="DynamicFont" id=2]
 size = 24
@@ -60,10 +60,11 @@ margin_left = 70.0
 margin_top = 20.0
 margin_right = 270.0
 margin_bottom = 45.0
-theme = SubResource( 1 )
+theme = ExtResource( 4 )
 custom_colors/font_color = Color( 0.184314, 0.992157, 0.0705882, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-value = 10.0
+max_value = 1000.0
+value = 500.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -94,9 +95,8 @@ anchor_top = 0.01
 anchor_right = 1.533
 anchor_bottom = 1.0
 margin_left = 220.0
-margin_top = 4.4
+margin_top = -0.6
 margin_right = 216.7
-margin_bottom = 5.0
 custom_fonts/font = SubResource( 2 )
 text = "Opinion:"
 valign = 1
@@ -109,9 +109,7 @@ anchor_left = 1.113
 anchor_right = 1.987
 anchor_bottom = 1.0
 margin_left = 263.7
-margin_top = 4.0
 margin_right = 218.3
-margin_bottom = 4.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
@@ -154,14 +152,15 @@ __meta__ = {
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/GovernmentBox/GovernmentContainer/GovernmentPatch"]
-margin_left = 560.0
-margin_top = 19.0
-margin_right = 760.0
-margin_bottom = 44.0
-theme = SubResource( 1 )
+margin_left = 560.885
+margin_top = 18.5577
+margin_right = 760.885
+margin_bottom = 43.5577
+theme = ExtResource( 5 )
 custom_colors/font_color = Color( 0.184314, 0.992157, 0.0705882, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-value = 10.0
+max_value = 1000.0
+value = 500.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
