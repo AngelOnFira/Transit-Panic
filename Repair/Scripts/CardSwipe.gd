@@ -3,8 +3,8 @@ extends Node2D
 var card_scene = preload("res://Scenes/Card.tscn")
 var res_eng = preload("ResourceEngine/ResourceEngine.gd").new()
 
-var view_width = 1025
-var view_height = 600
+var view_width = OS.get_window_size().x
+var view_height = OS.get_window_size().y
 
 var deck = []
 var focused_card
@@ -41,8 +41,8 @@ func _ready():
 
 	# Add 5 cards to the hand from a shuffled deck
 	var random_card
+	cards.shuffle()
 	for i in range(5):
-		cards.shuffle()
 		random_card = cards.pop_front()
 		print(random_card)
 		_add_card(
