@@ -66,13 +66,11 @@ func _add_card(content="", left="", right="", left_c="", right_c=""):
 	new_card.init(content, left, right, left_c, right_c)
 	
 	#choose a random position on-screen
-	var x_pos = randf()*(view_width - 375)
-	var y_pos = randf()*(view_height - 375)
+	var x_pos = randf()*(view_width - 375)+200
+	var y_pos = randf()*(view_height - 375)+200
 
 	new_card.set_position(Vector2(x_pos, y_pos))
 
-	#TODO:Look closer at what this is for
-	#new_card.set_position($CardPosition.position)
 	new_card.visible = false
 	deck.push_front(new_card)
 	add_child(new_card)
