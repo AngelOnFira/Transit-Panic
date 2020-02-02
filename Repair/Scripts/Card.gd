@@ -5,7 +5,7 @@ var right_conseq
 
 # Hacky vars to do what should be simple
 var dragging : bool = false # Used to detect if it's currently being clicked on
-var drag_x : int = 0  
+var drag_x : int = 0
 const drag_max : int = 100        # Max distance from point of drag
 
 # Some data for the parent to read
@@ -27,7 +27,7 @@ func init(content, left_choice, right_choice, left_cons, right_cons):
 func _ready():
 	#init("DEFAULT_CONTENT", "DEFAULT_LEFT", "DEFAULT_RIGHT", "DEFAULT_LCONS", "DEFAULT_RCONS")
 	pass
-	
+
 func set_content(text):
 	$Container/Content.text = text
 
@@ -61,11 +61,11 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && !event.pressed):
 		dragging = false
 		drag_x = 0
-		
-	# Now we look for mouse movement	
+
+	# Now we look for mouse movement
 	if (dragging && event is InputEventMouseMotion):
 		drag_x += event.relative.x
-		
+
 		# Check if we've moved far enough to select it
 		if abs(drag_x) > drag_max:
 			dragging = false
@@ -83,7 +83,7 @@ func choose_left():
 	$Container/SwipeAnimations.play("SwipeLeft")
 	yield($Container/SwipeAnimations, "animation_finished")
 	emit_signal("chose_option", self)
-	
+
 func choose_right():
 	swiped_left = false
 	consequence = right_conseq
