@@ -6,11 +6,7 @@ var card_scene = preload("res://Scenes/Card.tscn")
 func _ready():
 	var label = "The Default Failure. How did you get here?"
 
-	# For Testing
-	PlayerVariables.endgame_money = 500
-	PlayerVariables.endgame_opinion = 0
-	PlayerVariables.endgame_morality = 500
-	
+
 	
 	var poor = PlayerVariables.endgame_money <= 0
 	var rich = PlayerVariables.endgame_money >= 1000
