@@ -12,12 +12,11 @@ var focused_card
 signal finished_sheets
 var sheets
 
-var curr_card = 0
+const SECONDS_BETWEEN_CONSEQUENCES : float = 1.0
+var seconds_since_consequence : float = 0.0
 
-enum SWIPE {
-	right,
-	left
-}
+
+var curr_card = 0
 
 func _ready():
 	randomize()
@@ -59,7 +58,29 @@ func _ready():
 		card.connect("chose_option", self, "_play_card")
 
 func _process(delta):
+	check_passive_consequences(delta)
+	check_for_endgame()
 	updateGUI()
+	
+func check_passive_consequences(delta):
+	seconds_since_consequence += delta
+	if seconds_since_consequence >= SECONDS_BETWEEN_CONSEQUENCES:
+		seconds_since_consequence = 0
+		for card in deck:
+			# Run consequences
+			pass
+			
+func check_for_endgame():
+	# For each resource, check if it is above or below the threshold
+	# If it is, call end_game with the resource identifier and a bool if it was too high
+	# (false if too low)
+	pass
+	
+func end_game(resource : String, too_high : bool) -> void:
+	# Animation fade out, switch to an end scene with credits
+	# and a specialized output based on the resource situation
+	pass
+
 
 func _add_card(content="", left="", right="", left_c="", right_c=""):
 	var new_card = card_scene.instance()
@@ -80,12 +101,19 @@ func _play_card(card) :
 	# Hide the card and play out it's consequences"
 	deck[curr_card].visible = false
 	res_eng.processConsequent(card.consequence)
+	draw_card()
 	
+	# XXX: Burn the below after implementing draw_card
 	curr_card += 1
 	if curr_card == len(deck):
 		print("Out of cards")
 	else:
 		deck[curr_card].visible = true
+		
+func draw_card():
+	# Roulette select a card
+	# Set it to visible
+	pass
 
 func updateGUI() :
 	var gui_container : VBoxContainer = self.get_node("GUI").get_child(0)
