@@ -74,13 +74,25 @@ func check_for_endgame():
 	# For each resource, check if it is above or below the threshold
 	# If it is, call end_game with the resource identifier and a bool if it was too high
 	# (false if too low)
-	pass
+	var money = res_eng.getResourceValue("$")
+	var opinion = res_eng.getResourceValue("O")
+	var morality = res_eng.getResourceValue("G")
 	
-func end_game(resource : String, too_high : bool) -> void:
+	if 	(money > 1000 or money <= 0 or opinion > 1000 or money <= 0 or morality > 1000 or money <= 0):
+		end_game()
+
+	
+func end_game() -> void:
 	# Animation fade out, switch to an end scene with credits
 	# and a specialized output based on the resource situation
-	pass
-
+	$AnimationPlayer.play("Fade To Black")
+	PlayerVariables.endgame_money = res_eng.getResourceValue("$")
+	PlayerVariables.endgame_morality = res_eng.getResourceValue("G")
+	PlayerVariables.endgame_opinion = res_eng.getResourceValue("O")
+	set_process(false)
+	
+	yield($AnimationPlayer, "animation_finished")
+	get_tree().change_scene("res://Scenes/EndScreen.tscn")
 
 func _add_card(content="", left="", right="", left_c="", right_c=""):
 	var new_card = card_scene.instance()
