@@ -50,16 +50,18 @@ func _ready():
 			random_card[3],
 			random_card[5]
 		)
-		
-	focused_card = random_card
-
-	deck[0].visible = true
+	
+	#focused_card = random_card
+	#deck[0].visible = true
+	
+	focused_card = _add_card("This is a test card!", "Lose $500?", "Gain 500 opinion?", "$|-500", "O|500")
+	focused_card.visible = true
+	
 	for card in deck:
 		card.connect("chose_option", self, "_play_card")
 
 func _process(delta):
 	check_passive_consequences(delta)
-	check_for_endgame()
 	updateGUI()
 	
 func check_passive_consequences(delta):
@@ -70,7 +72,7 @@ func check_passive_consequences(delta):
 			# Run consequences
 			pass
 			
-func check_for_endgame():
+func check_for_endgame() -> bool:
 	# For each resource, check if it is above or below the threshold
 	# If it is, call end_game with the resource identifier and a bool if it was too high
 	# (false if too low)
@@ -80,6 +82,8 @@ func check_for_endgame():
 	
 	if 	(money > 1000 or money <= 0 or opinion > 1000 or money <= 0 or morality > 1000 or money <= 0):
 		end_game()
+		return true
+	return false
 
 	
 func end_game() -> void:
@@ -114,18 +118,19 @@ func _play_card(card) :
 	# Hide the card and play out it's consequences"
 	deck[curr_card].visible = false
 	res_eng.processConsequent(card.consequence)
-	draw_card()
 	
-	# XXX: Burn the below after implementing draw_card
+	if !check_for_endgame():
+		draw_card()
+	
+
+func draw_card():
+	# Replace with roulette selection and priority swapping
+	# Remember to set the focused card correctly
 	curr_card += 1
 	if curr_card == len(deck):
 		print("Out of cards")
 	else:
 		deck[curr_card].visible = true
-		
-func draw_card():
-	# Roulette select a card
-	# Set it to visible
 	pass
 
 func updateGUI() :
