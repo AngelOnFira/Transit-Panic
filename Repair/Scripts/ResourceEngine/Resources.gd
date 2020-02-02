@@ -1,6 +1,7 @@
 extends Node
 
 var ResourceType = preload("ResourceType.gd")
+var OpinionResource = preload("OpinionResource.gd")
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -9,7 +10,7 @@ var resources = {}
 
 func _init():
 	resources["$"] = ResourceType.new()
-	resources["O"] = ResourceType.new()
+	resources["O"] = OpinionResource.new()
 	resources["G"] = ResourceType.new()
 
 # Called when the node enters the scene tree for the first time.
