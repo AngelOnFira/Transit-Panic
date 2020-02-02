@@ -16,16 +16,14 @@ enum SWIPE {
 	left
 }
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
 	get_sheet("1g0Qx2i5g50F-Win9-ZwN0BTlAT-7SjDR7unNdpnu05M", "Sheet1")
 	yield(self, "finished_sheets")
 	
-#	print(sheets)
-	
 	var cards = []
 	
+	# CSV Parsing
 	var sheets_lines = sheets.split("\n")
 	for card in sheets_lines:
 		var this_card = []
@@ -34,6 +32,7 @@ func _ready():
 		cards.append(this_card)
 	cards.pop_front()
 	
+	# Add 5 cards to the hand from a shuffled deck
 	var random_card
 	for i in range(5):
 		cards.shuffle()
