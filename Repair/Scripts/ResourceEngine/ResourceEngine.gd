@@ -25,4 +25,4 @@ func activateConsquent(conseq : String):
 			print("Not a parameter")
 
 func getResourceValue(res_type : String):
-	return resources.getResource(res_type).getValue()
+	return resources.getResource(res_type)._getValue()
