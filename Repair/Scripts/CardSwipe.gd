@@ -58,7 +58,7 @@ func _process(delta):
 func _add_card(content="", left="", right="", left_c="", right_c=""):
 	var new_card = card_scene.instance()
 	new_card.init(content, left, right, left_c, right_c)
-	new_card.set_position(Vector2(375, 125))
+	new_card.set_position($CardPosition.position)
 	new_card.visible = false
 	deck.push_front(new_card)
 	add_child(new_card)
