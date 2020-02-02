@@ -65,16 +65,8 @@ func _ready():
 		card.connect("chose_option", self, "_play_card")
 
 func _process(delta):
-	check_passive_consequences(delta)
 	updateGUI()
-	
-func check_passive_consequences(delta):
-	seconds_since_consequence += delta
-	if seconds_since_consequence >= SECONDS_BETWEEN_CONSEQUENCES:
-		seconds_since_consequence = 0
-		for card in deck:
-			# Run consequences
-			pass
+
 			
 func check_for_endgame() -> bool:
 	# For each resource, check if it is above or below the threshold
@@ -145,7 +137,7 @@ func change_priority(card_id, set, value):
 				card.priority =  value
 			else:
 				card.priority = max(card.priority + value, 0)
-		print(card_id + " changed priority to " + card.priority)
+		#print(card_id + " changed priority to " + card.priority)
 
 func updateGUI() :
 	var gui_container : HBoxContainer = self.get_node("GUI").get_child(0)
