@@ -12,7 +12,7 @@ var focused_card
 signal finished_sheets
 var sheets
 
-var curr_card = 0
+var curr_card
 
 enum SWIPE {
 	right,
@@ -50,8 +50,7 @@ func _ready():
 			random_card[6]
 		)
 	
-	focused_card = random_card
-	deck[0].visible = true
+	draw_card()
 	
 	for card in deck:
 		card.connect("chose_option", self, "_play_card")
@@ -104,8 +103,9 @@ func _add_card(id, content="", left="", right="", left_c="", right_c="", priorit
 
 func _play_card(card) :
 	# Hide the card and play out it's consequences"
-	deck[curr_card].visible = false
-	deck[curr_card].get_node("Container/SwipeAnimations").seek(0,true)
+	print(curr_card.id)
+	curr_card.visible = false
+	curr_card.get_node("Container/SwipeAnimations").seek(0,true)
 	res_eng.processConsequent(card.consequence)
 	
 	if !check_for_endgame():
@@ -115,11 +115,21 @@ func _play_card(card) :
 func draw_card():
 	# Replace with roulette selection and priority swapping
 	# Remember to set the focused card correctly
-	curr_card = randi() % len(deck)
-	focused_card = deck[curr_card]
-	print(curr_card)
-	print(deck[curr_card])
-	deck[curr_card].visible = true
+	var priority_sum : int = 0
+	for card in deck:
+		priority_sum += card.priority
+	var count : int = 0
+	var rand : int = randi() % priority_sum
+	
+	for card in deck:
+		count += card.priority
+		if count > rand:
+			curr_card = card
+			focused_card = card
+			curr_card.visible = true
+			return
+	
+	print("No card chosen!")
 
 func change_priority(card_id, set, value):
 	for card in deck:
