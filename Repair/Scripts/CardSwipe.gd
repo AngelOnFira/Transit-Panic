@@ -3,6 +3,12 @@ extends Control
 var card_scene = preload("res://Scenes/Card.tscn")
 var res_eng = preload("ResourceEngine/ResourceEngine.gd").new()
 
+var opinion_images = [preload("../Assets/Images/Opinion_5.png"),
+						preload("../Assets/Images/Opinion_4.png"),
+						preload("../Assets/Images/Opinion_3.png"),
+						preload("../Assets/Images/Opinion_2.png"),
+						preload("../Assets/Images/Opinion_1.png")]
+
 var view_width = OS.get_window_size().x
 var view_height = OS.get_window_size().y
 
@@ -55,10 +61,6 @@ func _ready():
 	for card in deck:
 		card.connect("chose_option", self, "_play_card")
 
-func _process(delta):
-	updateGUI()
-
-			
 func check_for_endgame() -> bool:
 	# For each resource, check if it is above or below the threshold
 	# If it is, call end_game with the resource identifier and a bool if it was too high
@@ -107,7 +109,8 @@ func _play_card(card) :
 	curr_card.visible = false
 	curr_card.get_node("Container/SwipeAnimations").seek(0,true)
 	res_eng.processConsequent(card.consequence)
-	
+		
+	updateGUI()
 	if !check_for_endgame():
 		draw_card()
 	
@@ -156,15 +159,15 @@ func updateGUI() :
 	var opinion_photo : TextureRect = gui_container.get_node("OpinionBox/OpinionContainer/OpinionPatch/OpinionIcon")
 	var opinion_value = res_eng.getResourceValue("O")
 	if opinion_value > 800:
-		opinion_photo.texture = preload("../Assets/Images/Opinion_5.png")
-	if opinion_value > 600:
-		opinion_photo.texture = preload("../Assets/Images/Opinion_4.png")
-	if opinion_value > 400:
-		opinion_photo.texture = preload("../Assets/Images/Opinion_3.png")
-	if opinion_value > 200:
-		opinion_photo.texture = preload("../Assets/Images/Opinion_2.png")
-	if opinion_value > 0:
-		opinion_photo.texture = preload("../Assets/Images/Opinion_1.png")
+		opinion_photo.texture = opinion_images[0]
+	elif opinion_value > 600:
+		opinion_photo.texture = opinion_images[1]
+	elif opinion_value > 400:
+		opinion_photo.texture = opinion_images[2]
+	elif opinion_value > 200:
+		opinion_photo.texture = opinion_images[3]
+	elif opinion_value > 0:
+		opinion_photo.texture = opinion_images[4]
 
 	var government_status_bar : ProgressBar = gui_container.get_node("GovernmentBox/GovernmentContainer/GovernmentPatch/ProgressBar")	
 	diff = government_status_bar.value - res_eng.getResourceValue("G")
