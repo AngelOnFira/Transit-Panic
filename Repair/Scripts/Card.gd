@@ -1,7 +1,7 @@
 extends Node2D
 
 var id
-var priority
+var priority : int
 var left_conseq
 var right_conseq
 
